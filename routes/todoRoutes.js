@@ -1,5 +1,7 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router(); // creamos una instancia del enrutador de express
 const Movie = require("../models/todo");
+
 
 
 router.get("/", (req, res) => {
@@ -19,14 +21,12 @@ router.post("/newMovies", (req, res) => {
 });
 
 
-
-router.delete("/removeMovies", (req, res) => {
-  Movie.findOneAndRemove({ _id: req.body.id }, (err, result) => {
+router.delete("/removeMovies/:id", (req, res) => {
+  Movie.findOneAndRemove({ _id: req.params.id }, (err, result) => {
     if (err) throw new Error(err);
-    res.end(result);
+    res.end();
   });
 });
-
 
 
 router.put("/movies/:id", (req, res) => {
